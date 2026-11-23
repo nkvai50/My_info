@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title id="siteTitle">KAWSAR ISLAM — Professional Bio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Hind+Siliguri:wght@400;600&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+  :root{
+    --bg-1: #021025;
+    --bg-2: #00162b;
+    --accent: #00e6ff;
+    --accent-2: #7b61ff;
+    --muted: #bcd9e6;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family: 'Poppins', 'Hind Siliguri', sans-serif;
+    background: linear-gradient(180deg,var(--bg-1),var(--bg-2));
+    color:white;
+    overflow-x:hidden;
+  }
+
+  /* Background Particles */
+  #bg-wrap{position:fixed;inset:0;z-index:0;pointer-events:none;}
+  canvas{width:100%;height:100%;display:block}
+
+  .radial-lights{
+    position:fixed;inset:0;
+    background:
+      radial-gradient(600px 400px at 10% 20%, rgba(123,97,255,0.08), transparent 8%),
+      radial-gradient(700px 500px at 90% 80%, rgba(0,230,255,0.06), transparent 10%);
+    mix-blend-mode:screen;
+    z-index:0;
+  }
+
+  /* Center Layout */
+  .wrap{
+    position:relative; z-index:5;
+    min-height:100vh;
+    display:flex; align-items:center; justify-content:center;
+    padding:30px 20px;
+  }
+
+  /* Card */
+  .card{
+    width:100%;
+    max-width:820px;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:32px;
+    background:rgba(255,255,255,0.03);
+    border-radius:20px;
+    padding:32px;
+    backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,0.04);
+    box-shadow:0 10px 50px rgba(0,0,0,0.5);
+    animation:fadeUp .8s ease forwards;
+    opacity:0; transform:translateY(8px);
+  }
+
+  .card.single-col{
+    grid-template-columns: 1fr;
+    max-width: 720px;
+  }
+
+  .hidden{
+    display: none !important;
+  }
+
+  @keyframes fadeUp{
+    to{opacity:1;transform:translateY(0)}
+  }
+
+  .card:hover{transform:translateY(-6px);transition:0.3s}
+
+  /* LEFT SIDE */
+  .brand{display:flex;gap:12px;align-items:center;margin-bottom:10px}
+
+  .logo{
+    width:56px;
+    height:56px;
+    border-radius:12px;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:none !important;
+    border: 1px solid rgba(0,230,255,0.3);
+  }
+  .logo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:12px;
+  }
+
+  .name{
+    font-family:'Orbitron', sans-serif;font-size:32px;margin-top:8px;
+  }
+  .role{color:var(--accent);font-weight:600;margin-bottom:18px;letter-spacing:0.5px}
+
+  .intro{color:var(--muted);font-size:15px;margin-bottom:16px;min-height:48px}
+  .typed{color:#dffcff;font-weight:600}
+  .cursor{
+    display:inline-block;width:2px;height:18px;background:var(--accent);
+    margin-left:4px;animation:blink .9s infinite;
+  }
+  @keyframes blink{50%{opacity:0}}
+
+  .tags{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+  .tag{
+    background:rgba(255,255,255,0.06);
+    padding:8px 12px;font-size:13px;border-radius:20px;color:var(--muted);
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+  .btn{
+    background:linear-gradient(90deg,var(--accent),var(--accent-2));
+    padding:10px 18px;border-radius:10px;
+    text-decoration:none;color:black;font-weight:600;
+    display:inline-flex;align-items:center;gap:8px;
+    cursor:pointer;border:none;font-size:14px;
+    transition:0.3s;
+  }
+  .btn:hover{opacity:0.9;transform:scale(1.02)}
+  .btn.ghost{
+    background:transparent;border:1px solid rgba(255,255,255,0.2);
+    color:var(--muted);
+  }
+  .btn.danger{
+    background:rgba(255, 65, 85, 0.15);
+    border:1px solid rgba(255, 65, 85, 0.4);
+    color:#ff7b89;
+  }
+
+  /* RIGHT SIDE */
+  .profile-panel{display:flex;flex-direction:column;align-items:center;gap:16px}
+
+  .avatar{
+    width:180px;height:180px;border-radius:20px;
+    overflow:hidden;border:4px solid rgba(0,230,255,0.25);
+    box-shadow: 0 0 25px rgba(0,230,255,0.15);
+  }
+  .avatar img{width:100%;height:100%;object-fit:cover}
+
+  .socials{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+  .socials a{
+    width:46px;height:46px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    background:rgba(255,255,255,0.05);
+    color:white;font-size:18px;
+    transition:0.3s;border:1px solid rgba(255,255,255,0.1);
+    text-decoration:none;
+  }
+  .socials a:hover{
+    transform:translateY(-5px) scale(1.06);
+    background:linear-gradient(90deg,var(--accent),var(--accent-2));
+    color:black;
+  }
+
+  .badge{
+    background:rgba(255,255,255,0.06);
+    padding:8px 14px;border-radius:20px;font-size:13px;color:var(--muted);
+    user-select:none;
+    cursor:pointer;
+  }
+
+  /* ABOUT SECTION STYLING */
+  .about-box{
+    background:rgba(255,255,255,0.04);
+    padding:20px;
+    border-radius:14px;
+    border:1px solid rgba(255,255,255,0.08);
+    color:var(--muted);
+    line-height:1.8;
+    font-size:15px;
+    margin: 16px 0 22px 0;
+  }
+
+  /* ADMIN PANEL STYLING */
+  .admin-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    margin:16px 0 20px 0;
+    text-align:left;
+  }
+  .form-group{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+  }
+  .form-group.full{
+    grid-column: 1 / -1;
+  }
+  .form-group label{
+    font-size:12px;
+    color:var(--accent);
+    font-weight:600;
+    letter-spacing:0.5px;
+  }
+  .form-group input, .form-group textarea{
+    background:rgba(0,0,0,0.35);
+    border:1px solid rgba(255,255,255,0.12);
+    border-radius:10px;
+    padding:10px 12px;
+    color:white;
+    font-family:inherit;
+    font-size:14px;
+    outline:none;
+    transition:0.2s;
+  }
+  .form-group input:focus, .form-group textarea:focus{
+    border-color:var(--accent);
+  }
+  .toast{
+    position:fixed;
+    bottom:24px;
+    right:24px;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2));
+    color:black;
+    padding:12px 20px;
+    border-radius:12px;
+    font-weight:600;
+    font-size:14px;
+    z-index:999;
+    box-shadow:0 8px 25px rgba(0,230,255,0.3);
+    display:none;
+  }
+
+  /* RESPONSIVE */
+  @media(max-width:1000px){
+    .card{
+      grid-template-columns:1fr;
+      max-width:600px;
+      text-align:center;
+    }
+    .brand{justify-content:center}
+    .tags{justify-content:center}
+    .actions{justify-content:center}
+    .profile-panel{order:-1}
+    .about-box{text-align:left}
+  }
+
+  @media(max-width:600px){
+    .card{padding:24px;gap:20px}
+    .avatar{width:150px;height:150px}
+    .name{font-size:26px}
+    .admin-grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<div id="bg-wrap"><canvas id="particles"></canvas></div>
+<div class="radial-lights"></div>
+<div id="toast" class="toast">সেটিংস সফলভাবে সেভ হয়েছে!</div>
+
+<main class="wrap">
+  
+  <!-- 1. MAIN PROFILE PAGE -->
+  <section class="card" id="mainPage">
+
+    <div class="info">
+      <div class="brand">
+        <div class="logo">
+          <img id="displayLogo" src="https://i.ibb.co/601Bqdfp/1000000172.jpg" alt="Logo">
+        </div>
+
+        <div style="text-align:left">
+          <h4 id="displayBrandName">KAWSAR ISLAM</h4>
+          <p id="displayBrandSub" style="font-size:13px;color:#bcd9e6">1UP TEAM ADMIN • Developer & Creator</p>
+        </div>
+      </div>
+
+      <h1 class="name" id="displayMainName">KAWSAR ISLAM</h1>
+      <div class="role" id="displayRole">1UP TEAM ADMIN</div>
+
+      <p class="intro">
+        <span id="displayIntroPrefix">আমি একজন ডেভেলপার, এডিটর এবং সাইবার সিকিউরিটি উৎসাহী —</span>
+        <span class="typed" id="typed"></span><span class="cursor"></span>
+      </p>
+
+      <div class="tags" id="displayTags">
+        <div class="tag">App & Web Dev</div>
+        <div class="tag">Python Tools</div>
+        <div class="tag">Video & Photo Editing</div>
+        <div class="tag">Cybersecurity</div>
+      </div>
+      
+      <p style="color: #dffcff; font-size: 14px; margin-bottom: 12px; font-weight: 600;">
+        আমার সম্পর্কে বিস্তারিত জানতে নিচের Next বাটনে ক্লিক করুন।
+      </p>
+      
+      <div class="actions">
+        <button onclick="openPage('aboutPage')" class="btn">
+          Next <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <aside class="profile-panel">
+      <div class="avatar">
+        <img id="displayAvatar" src="https://i.ibb.co/601Bqdfp/1000000172.jpg" alt="Profile">
+      </div>
+
+      <div class="socials">
+        <a id="linkTelegram" href="https://t.me/dg_dox404" target="_blank" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
+        <a id="linkGithub" href="#" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+        <a id="linkFacebook" href="https://www.facebook.com/share/1ERMLp8GXq/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a id="linkYoutube" href="#" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+        <a id="linkWhatsapp" href="https://wa.me/8801321053212" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      </div>
+
+      <!-- গোপন ট্রিগার: এখানে ৫ বার ট্যাপ করলে অ্যাডমিন প্যানেল খুলবে -->
+      <div class="badge" id="displayBadge" onclick="secretAdminTap()">Available for work</div>
+    </aside>
+
+  </section>
+
+  <!-- 2. SECOND PAGE: ABOUT ME -->
+  <section class="card single-col hidden" id="aboutPage">
+    <div>
+      <h2 class="name" style="font-size:26px;" id="displayAboutTitle">About For →KAWSAR ISLAM←</h2>
+      <div class="role" style="margin-bottom:10px;" id="displayAboutRole">1UP TEAM ADMIN</div>
+
+      <div class="about-box" id="displayAboutText">
+        <p style="margin-bottom:12px;">
+          আসসালামু আলাইকুম! আমি <strong>KAWSAR ISLAM</strong>। আমি মূলত অ্যান্ড্রয়েড অ্যাপ এবং আধুনিক ওয়েবসাইট ডেভেলপমেন্ট নিয়ে কাজ করি। এছাড়াও অটোমেশন ও বিভিন্ন কাজের সুবিধার্থে কাস্টম <strong>Python টুলস</strong> তৈরি করি।
+        </p>
+        <p style="margin-bottom:12px;">
+          ডেভেলপমেন্টের পাশাপাশি আমি প্রফেশনাল <strong>ভিডিও এডিটিং ও ফটো এডিটিং</strong> এবং ওয়েব সিকিউরিটি ও সাইবার সিকিউরিটি নিয়ে কাজ করতে ভালোবাসি।
+        </p>
+        <p>
+          যেকোনো প্রজেক্ট, টুলস বা কাজের প্রয়োজনে আমার টেলিগ্রাম, ফেসবুক বা হোয়াটসঅ্যাপে সরাসরি যোগাযোগ করতে পারেন।
+        </p>
+      </div>
+
+      <div class="actions">
+        <button onclick="openPage('mainPage')" class="btn ghost">
+          <i class="fas fa-arrow-left"></i> Back
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. ADMIN CONTROL PANEL -->
+  <section class="card single-col hidden" id="adminPage">
+    <div>
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+        <div>
+          <h2 class="name" style="font-size:24px;color:var(--accent);">ADMIN PANEL</h2>
+          <p style="font-size:13px;color:var(--muted);">এখান থেকে আপনার নাম, ছবি, লিংক এবং বায়ো পরিবর্তন করুন</p>
+        </div>
+        <button onclick="openPage('mainPage')" class="btn ghost">
+          <i class="fas fa-times"></i> Close
+        </button>
+      </div>
+
+      <div class="admin-grid">
+        <div class="form-group">
+          <label>আপনার নাম (Main Name)</label>
+          <input type="text" id="inName" placeholder="KAWSAR ISLAM">
+        </div>
+
+        <div class="form-group">
+          <label>পদবী / রোল (Role)</label>
+          <input type="text" id="inRole" placeholder="1UP TEAM ADMIN">
+        </div>
+
+        <div class="form-group">
+          <label>সাব-টাইটেল (Brand Subtitle)</label>
+          <input type="text" id="inBrandSub" placeholder="1UP TEAM ADMIN • Developer & Creator">
+        </div>
+
+        <div class="form-group">
+          <label>স্ট্যাটাস ব্যাজ (Badge Text)</label>
+          <input type="text" id="inBadge" placeholder="Available for work">
+        </div>
+
+        <div class="form-group full">
+          <label>প্রোফাইল ও লোগো ছবির লিংক (Direct Image URL)</label>
+          <input type="url" id="inPhoto" placeholder="https://i.ibb.co/...">
+        </div>
+
+        <div class="form-group">
+          <label>টেলিগ্রাম লিংক (Telegram URL)</label>
+          <input type="url" id="inTelegram" placeholder="https://t.me/dg_dox404">
+        </div>
+
+        <div class="form-group">
+          <label>ফেসবুক লিংক (Facebook URL)</label>
+          <input type="url" id="inFacebook" placeholder="https://www.facebook.com/...">
+        </div>
+
+        <div class="form-group">
+          <label>হোয়াটসঅ্যাপ নম্বর (কান্ট্রি কোডসহ)</label>
+          <input type="text" id="inWhatsapp" placeholder="8801321053212">
+        </div>
+
+        <div class="form-group">
+          <label>ইউটিউব লিংক (YouTube URL)</label>
+          <input type="url" id="inYoutube" placeholder="https://youtube.com/...">
+        </div>
+
+        <div class="form-group full">
+          <label>গিটহাব লিংক (GitHub URL)</label>
+          <input type="url" id="inGithub" placeholder="https://github.com/...">
+        </div>
+
+        <div class="form-group full">
+          <label>স্কিল ট্যাগসমূহ (কমা দিয়ে আলাদা করুন)</label>
+          <input type="text" id="inTags" placeholder="App & Web Dev, Python Tools, Video & Photo Editing, Cybersecurity">
+        </div>
+
+        <div class="form-group full">
+          <label>About পেজের বিস্তারিত লেখা (HTML বা সাধারণ টেক্সট)</label>
+          <textarea id="inAbout" rows="5"></textarea>
+        </div>
+
+        <div class="form-group full">
+          <label>নতুন অ্যাডমিন পাসওয়ার্ড সেট করুন (ঐচ্ছিক)</label>
+          <input type="text" id="inPass" placeholder="ডিফল্ট পাসওয়ার্ড: kawsar123">
+        </div>
+      </div>
+
+      <div class="actions">
+        <button onclick="saveAdminSettings()" class="btn">
+          <i class="fas fa-save"></i> Save Changes
+        </button>
+        <button onclick="resetDefaultSettings()" class="btn danger">
+          <i class="fas fa-undo"></i> Reset Default
+        </button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+const STORAGE_KEY = "kawsar_bio_config_v1";
+
+const DEFAULT_DATA = {
+  name: "KAWSAR ISLAM",
+  role: "1UP TEAM ADMIN",
+  brandSub: "1UP TEAM ADMIN • Developer & Creator",
+  badge: "Available for work",
+  photo: "https://i.ibb.co/601Bqdfp/1000000172.jpg",
+  telegram: "https://t.me/dg_dox404",
+  facebook: "https://www.facebook.com/share/1ERMLp8GXq/",
+  whatsapp: "8801321053212",
+  youtube: "#",
+  github: "#",
+  tags: "App & Web Dev, Python Tools, Video & Photo Editing, Cybersecurity",
+  aboutHtml: `<p style="margin-bottom:12px;">আসসালামু আলাইকুম! আমি <strong>KAWSAR ISLAM</strong>। আমি মূলত অ্যান্ড্রয়েড অ্যাপ এবং আধুনিক ওয়েবসাইট ডেভেলপমেন্ট নিয়ে কাজ করি। এছাড়াও অটোমেশন ও বিভিন্ন কাজের সুবিধার্থে কাস্টম <strong>Python টুলস</strong> তৈরি করি।</p><p style="margin-bottom:12px;">ডেভেলপমেন্টের পাশাপাশি আমি প্রফেশনাল <strong>ভিডিও এডিটিং ও ফটো এডিটিং</strong> এবং ওয়েব সিকিউরিটি ও সাইবার সিকিউরিটি নিয়ে কাজ করতে ভালোবাসি।</p><p>যেকোনো প্রজেক্ট, টুলস বা কাজের প্রয়োজনে আমার টেলিগ্রাম, ফেসবুক বা হোয়াটসঅ্যাপে সরাসরি যোগাযোগ করতে পারেন।</p>`,
+  adminPass: "kawsar123"
+};
+
+let appConfig = loadConfig();
+
+function loadConfig(){
+  try{
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    return saved ? {...DEFAULT_DATA, ...saved} : {...DEFAULT_DATA};
+  }catch(e){
+    return {...DEFAULT_DATA};
+  }
+}
+
+function applyConfigToSite(){
+  document.title = appConfig.name + " — Professional Bio";
+  document.getElementById("displayBrandName").textContent = appConfig.name;
+  document.getElementById("displayMainName").textContent = appConfig.name;
+  document.getElementById("displayAboutTitle").textContent = `About For →${appConfig.name}←`;
+  
+  document.getElementById("displayRole").textContent = appConfig.role;
+  document.getElementById("displayAboutRole").textContent = appConfig.role;
+  document.getElementById("displayBrandSub").textContent = appConfig.brandSub;
+  document.getElementById("displayBadge").textContent = appConfig.badge;
+
+  document.getElementById("displayLogo").src = appConfig.photo;
+  document.getElementById("displayAvatar").src = appConfig.photo;
+
+  document.getElementById("linkTelegram").href = appConfig.telegram || "#";
+  document.getElementById("linkFacebook").href = appConfig.facebook || "#";
+  document.getElementById("linkYoutube").href = appConfig.youtube || "#";
+  document.getElementById("linkGithub").href = appConfig.github || "#";
+  
+  const cleanWa = (appConfig.whatsapp || "").replace(/[^0-9]/g, "");
+  document.getElementById("linkWhatsapp").href = cleanWa ? `https://wa.me/${cleanWa}` : "#";
+
+  const tagsContainer = document.getElementById("displayTags");
+  tagsContainer.innerHTML = "";
+  appConfig.tags.split(",").forEach(t => {
+    const trimmed = t.trim();
+    if(trimmed){
+      const div = document.createElement("div");
+      div.className = "tag";
+      div.textContent = trimmed;
+      tagsContainer.appendChild(div);
+    }
+  });
+
+  document.getElementById("displayAboutText").innerHTML = appConfig.aboutHtml;
+}
+
+/* Secret 5-Tap Admin Trigger */
+let tapCount = 0;
+let tapTimer = null;
+
+function secretAdminTap(){
+  tapCount++;
+  clearTimeout(tapTimer);
+  tapTimer = setTimeout(() => { tapCount = 0; }, 1800);
+
+  if(tapCount >= 5){
+    tapCount = 0;
+    const pass = prompt("অ্যাডমিন প্যানেল খুলতে পাসওয়ার্ড দিন:");
+    if(pass === appConfig.adminPass){
+      populateAdminForm();
+      openPage("adminPage");
+    } else if(pass !== null) {
+      alert("ভুল পাসওয়ার্ড!");
+    }
+  }
+}
+
+function populateAdminForm(){
+  document.getElementById("inName").value = appConfig.name;
+  document.getElementById("inRole").value = appConfig.role;
+  document.getElementById("inBrandSub").value = appConfig.brandSub;
+  document.getElementById("inBadge").value = appConfig.badge;
+  document.getElementById("inPhoto").value = appConfig.photo;
+  document.getElementById("inTelegram").value = appConfig.telegram;
+  document.getElementById("inFacebook").value = appConfig.facebook;
+  document.getElementById("inWhatsapp").value = appConfig.whatsapp;
+  document.getElementById("inYoutube").value = appConfig.youtube === "#" ? "" : appConfig.youtube;
+  document.getElementById("inGithub").value = appConfig.github === "#" ? "" : appConfig.github;
+  document.getElementById("inTags").value = appConfig.tags;
+  document.getElementById("inAbout").value = appConfig.aboutHtml;
+  document.getElementById("inPass").value = appConfig.adminPass;
+}
+
+function saveAdminSettings(){
+  appConfig.name = document.getElementById("inName").value.trim() || DEFAULT_DATA.name;
+  appConfig.role = document.getElementById("inRole").value.trim() || DEFAULT_DATA.role;
+  appConfig.brandSub = document.getElementById("inBrandSub").value.trim() || DEFAULT_DATA.brandSub;
+  appConfig.badge = document.getElementById("inBadge").value.trim() || DEFAULT_DATA.badge;
+  appConfig.photo = document.getElementById("inPhoto").value.trim() || DEFAULT_DATA.photo;
+  appConfig.telegram = document.getElementById("inTelegram").value.trim() || "#";
+  appConfig.facebook = document.getElementById("inFacebook").value.trim() || "#";
+  appConfig.whatsapp = document.getElementById("inWhatsapp").value.trim();
+  appConfig.youtube = document.getElementById("inYoutube").value.trim() || "#";
+  appConfig.github = document.getElementById("inGithub").value.trim() || "#";
+  appConfig.tags = document.getElementById("inTags").value.trim() || DEFAULT_DATA.tags;
+  appConfig.aboutHtml = document.getElementById("inAbout").value.trim() || DEFAULT_DATA.aboutHtml;
+  
+  const newPass = document.getElementById("inPass").value.trim();
+  if(newPass) appConfig.adminPass = newPass;
+
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(appConfig));
+  applyConfigToSite();
+  showToast("পরিবর্তনগুলো সেভ হয়েছে!");
+  openPage("mainPage");
+}
+
+function resetDefaultSettings(){
+  if(confirm("আপনি কি সব সেটিংস আগের ডিফল্ট অবস্থায় ফিরিয়ে নিতে চান?")){
+    localStorage.removeItem(STORAGE_KEY);
+    appConfig = {...DEFAULT_DATA};
+    applyConfigToSite();
+    populateAdminForm();
+    showToast("ডিফল্ট সেটিংস রিসেট হয়েছে!");
+  }
+}
+
+function showToast(msg){
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.style.display = "block";
+  setTimeout(() => { t.style.display = "none"; }, 2500);
+}
+
+/* Page Navigation */
+function openPage(pageId){
+  ["mainPage", "aboutPage", "adminPage"].forEach(id => {
+    document.getElementById(id).classList.add("hidden");
+  });
+  document.getElementById(pageId).classList.remove("hidden");
+}
+
+/* Initial Load */
+applyConfigToSite();
+
+/* particles */
+(function(){
+  const c=document.getElementById("particles"),ctx=c.getContext("2d");
+  let w=c.width=innerWidth,h=c.height=innerHeight;
+  addEventListener("resize",()=>{w=c.width=innerWidth;h=c.height=innerHeight;init();});
+  const P=[],N=80;
+
+  function R(a,b){return Math.random()*(b-a)+a}
+  function init(){P.length=0;for(let i=0;i<N;i++){P.push({x:R(0,w),y:R(0,h),vx:R(-0.3,0.3),vy:R(-0.3,0.3),r:R(0.7,2),a:R(0.2,0.8)});} }
+  init();
+
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    for(const p of P){
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<0)p.x=w;if(p.x>w)p.x=0;if(p.y<0)p.y=h;if(p.y>h)p.y=0;
+      ctx.beginPath();
+      ctx.fillStyle=`rgba(0,230,255,${p.a})`;
+      ctx.arc(p.x,p.y,p.r,0,6.28);ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* typing */
+(function(){
+  const phrases=[
+    "App & Web Developer • Python Tools",
+    "Video & Photo Editing • Cybersecurity",
+    "1UP TEAM ADMIN • Problem Solver"
+  ];
+  const el=document.getElementById("typed");
+  let pi=0,ci=0,fwd=true;
+
+  function type(){
+    let t=phrases[pi];
+    if(fwd){
+      el.textContent=t.slice(0,ci++);
+      if(ci>t.length){fwd=false;setTimeout(type,900);return;}
+    }else{
+      el.textContent=t.slice(0,ci--);
+      if(ci<0){fwd=true;pi=(pi+1)%phrases.length;ci=0;setTimeout(type,300);return;}
+    }
+    setTimeout(type,70);
+  }
+  type();
+})();
+</script>
+
+</body>
+</html>
